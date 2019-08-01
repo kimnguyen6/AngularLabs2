@@ -29,9 +29,6 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/account")
         alert("Login Success");
       }
-      else {
-        alert("Login Unsuccessful");
-      }
     }
   }
 }
