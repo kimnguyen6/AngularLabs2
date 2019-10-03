@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>User Profile</title>
+    </head>
+    <body>
+        <form>
+            <h2>User Details</h2>
+            {{userData}}
+            <div>
+                <h3>Current Username: {{userData.username}}</h3>
+                <h3>New Username: </h3><input type="text" name="username" [(ngModel)]="username" required="required">
+            </div>
+            <div>
+                <h3>Current Age: {{userData.age}}</h3>
+                <h3>New Age: </h3><input type="number" name="age" [(ngModel)]="age" required="required">
+            </div>  
+            <div>
+                <h3>Current Email: {{userData.email}}</h3>
+                <h3>New Email: </h3><input type="text" name="email" [(ngModel)]="email" required="required">
+            </div>
+            <div>
+                <h3>Current Birthdate: {{userData.birthdate}}</h3>
+                <h3>New Birthdate: </h3><input type="text" name="birthdate" [(ngModel)]="birthdate" required="required">
+            </div>
+            <div>
+                <button (click)="buttonClicked()">Edit</button>
+            </div>      
+        </form>
+    </body>
+</html>   

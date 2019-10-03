@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'server/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -7,28 +9,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: string;
-  password: string;
-  users = [
-    {email: "pepe@thefrog.com", password: "feelsgoodman"},
-    {email: "pepe2@thefrog.com", password: "feelsbadman"},
-    {email: "pepe3@thefrog.com", password: "feelsokayman"}
-  ];
-  constructor(private router: Router) { }
+
+  email = ""
+  password = ""
+  an_array = [
+    {"email": "pepe1@com.au", "password": "fgm"},
+    {"email": "pepe2@com.au", "password": "fbm"},
+    {"email": "pepe3@com.au", "password": "fom"}
+  ]
+
+  constructor(private router:Router, private authservice: AuthService) { }
 
   ngOnInit() {
   }
 
-  itemClicked(){
-    for(let i = 0; i < this.users.length; i++){
-      if (
-        this.email == this.users[i].email &&
-        this.password == this.users[i].password
-      )
-      {
-        this.router.navigateByUrl("/account")
-        alert("Login Success");
+  buttonClicked(){
+    this.authservice.login(this.email, this.password).subscribe(data=>{
+      const json_data = JSON.stringify(data)
+      if(data.valid === true){
+        this.router.navigateByUrl('/account');
+      }else{
+        alert("Email and password were incorrect")
+      }
+      sessionStorage.setItem("currentUserData", json_data);
+    }, (err: HttpErrorResponse)=>{
+      alert("Email and password were incorrect")
+    })
+  }
+
+  matchInputs(emailAdd, pass, array){
+    var i;
+    for (i = 0; i < array.length; i++){
+      if (array[i].email === emailAdd && array[i].password === pass) {
+        return true;
       }
     }
+    return false
   }
+
+
 }
